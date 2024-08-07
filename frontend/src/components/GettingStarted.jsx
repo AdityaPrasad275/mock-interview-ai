@@ -25,6 +25,7 @@ const GettingStarted = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setSummary(data.summary);
       } else {
         setError('Error summarizing resume.');
