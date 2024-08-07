@@ -7,3 +7,11 @@
 # Getting started page
 - for taking resume input and job description
 - form input taking pdf files
+
+# Backend
+- setting up using express
+- proxy in vite.config.js to forward requests to backend
+- adding multer for file upload
+- in `gettingStarted.js` added text extraction from pdf
+
+
