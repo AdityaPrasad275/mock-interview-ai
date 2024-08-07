@@ -3,3 +3,7 @@
 - `pnpm i react-router-dom`
 - adding routes as described in tut for react-router-dom in `main.jsx`
 - adding a `vite.config.js` to overcome `React not defined error` in browser
+
+# Getting started page
+- for taking resume input and job description
+- form input taking pdf files

@@ -18,7 +18,7 @@ const GettingStarted = () => {
     formData.append('resume', file);
 
     try {
-      const response = await fetch('/api/parse-resume', {
+      const response = await fetch('/api/gettingStarted', {
         method: 'POST',
         body: formData,
       });
