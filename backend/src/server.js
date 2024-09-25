@@ -30,17 +30,10 @@ app.post('/api/gettingStarted',
   multer({ dest: 'src/uploads/' }).single('resume'),
   main,
   (req, res) => {
-    // Access summarized content from req object
     const summarizedResume = req.summarizedContent;
-    //console.log('Summarized Resume!', summarizedResume);
     req.app.locals.summarizedResume = summarizedResume;
-    //res.end();
   }
 );
-
-// app.get('/api/resume', (req, res) => {
-//   res.json({ summary: summarizedResume });
-// });
 
 
 app.post('/api/interviewer-asks', (req, res, next) => {

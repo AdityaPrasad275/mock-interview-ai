@@ -3,17 +3,8 @@ import Interviewer from './Interviewer';
 import Reviewer from './Reviewer';
 import User from './User';
 
-const askLLM = async (endpoint, payload) => {
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  });
-  const data = await response.json();
-  return data;
-}
+var prev_question = "Tell me abt yourself";
+var prev_answer = "";
 
 const Interview = () => {
   const [messages, setMessages] = useState([{
@@ -40,14 +31,9 @@ const Interview = () => {
     scrollToBottom();
   }, [messages]);
 
-  let prev_question = "Tell me abt yourself";
-  let prev_answer = "";
-
   const startChain = async (e) => {
     e.preventDefault();
     const user_ans = e.target[0].value;
-
-    console.log(prev_question, prev_answer);
 
     if (state === 1) {
       prev_answer = user_ans;
@@ -68,8 +54,8 @@ const Interview = () => {
     } else if (state === 3) {
       prev_answer = user_ans;
       setMessages(prevMessages => [...prevMessages, { sender: "user", content: user_ans }]);
-      console.log(messages);
-      await interviewerAsks(prev_question);
+      
+      await interviewerAsks();
       setSystemDirections("Formulate an answer to the question and send it to the reviewer");
       setState(1);
     }
@@ -83,15 +69,30 @@ const Interview = () => {
     event.target.style.height = `${event.target.scrollHeight}px`;
   };
 
-  async function interviewerAsks(prev_question){
-    const response = await askLLM('/api/interviewer-asks', { prev_answer, prev_question });
+  async function interviewerAsks(){
+    const response = await apiRequest('/api/interviewer-asks', prev_question, prev_answer);
+    
     prev_question = response.next_question;
+    
     setMessages(prevMessages => [...prevMessages, { sender: "interviewer", content: response }]);
   }
 
   async function reviewerReviews(){
-    const response = await askLLM('/api/reviewer-reviews', { prev_question, prev_answer });
+    const response = await apiRequest('/api/reviewer-reviews', prev_question, prev_answer);
     setMessages(prevMessages => [...prevMessages, { sender: "reviewer", content: response }]);
+  }
+
+  const apiRequest = async (endpoint, prev_question, prev_answer) => {
+    console.log({ prevQuestion: prev_question, prevAnswer: prev_answer });
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ prevQuestion: prev_question, prevAnswer: prev_answer }),
+    });
+    const data = await response.json();
+    return data;
   }
 
   return ( 

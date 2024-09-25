@@ -3,7 +3,7 @@ const askLLM = require('./askLLM.js');
 
 const parseResponse = (responseString) => {
   const jsonString = responseString.replace(/```json|```/g, '').trim();
-  console.log(responseString);
+  //console.log(responseString);
   return JSON.parse(jsonString);
 };
 
@@ -65,7 +65,7 @@ const reviewer = async (req, res) => {
       "model_answer": "The model answer to given question"
     }
   `;
-  console.log('review_prompt:', review_prompt);
+  //console.log('review_prompt:', review_prompt);
   try {
     const responseText = await askLLM(review_prompt);
     //console.log('responseText:', responseText);
