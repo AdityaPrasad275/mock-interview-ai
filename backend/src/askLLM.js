@@ -1,27 +1,23 @@
 require('dotenv').config();
 
-const { Groq } = require('groq-sdk');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
-async function askLLM(prompt) {
-  const chatCompletion = await getGroqChatCompletion(prompt);
-  // Print the completion returned by the LLM.
-  const completion = chatCompletion.choices[0]?.message?.content || "";
-  
-  return completion;
-}
 
-async function getGroqChatCompletion(prompt) {
-  return groq.chat.completions.create({
-    messages: [
-      {
-        role: "user",
-        content: `${prompt}`,
-      },
-    ],
-    model: "llama-3.1-70b-versatile",
-  });
-}
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const askLLM = async (prompt) => {
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  try {
+    const result = await model.generateContent(prompt);
+    await sleep(4000); // Add a delay of 4 seconds
+    const response = result.response;
+    return response.text();
+  } catch (error) {
+    console.error('Error in askLLM:', error);
+    throw error;
+  }
+};
 
 module.exports = askLLM;

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage.jsx";
 import GettingStarted from './components/GettingStarted.jsx';
-
+import InterviewRoom from './components/InterviewRoom.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +16,11 @@ const router = createBrowserRouter([
     element: <GettingStarted />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/interview",
+    element: <InterviewRoom />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

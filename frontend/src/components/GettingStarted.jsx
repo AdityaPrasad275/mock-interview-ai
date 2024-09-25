@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const GettingStarted = () => {
   const [file, setFile] = useState(null);
@@ -25,7 +26,7 @@ const GettingStarted = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         setSummary(data.summary);
       } else {
         setError('Error summarizing resume.');
@@ -51,6 +52,10 @@ const GettingStarted = () => {
           {summary && <p>{summary}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
+
+        <Link to="/interview">
+          <button>Start Interview</button>
+        </Link>
       </div>
     </>
   );

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@google/generative-ai':
+        specifier: ^0.17.1
+        version: 0.17.1
       body-parser:
         specifier: ^1.20.2
         version: 1.20.2
@@ -37,6 +40,10 @@ importers:
         version: 1.1.1
 
 packages:
+
+  '@google/generative-ai@0.17.1':
+    resolution: {integrity: sha512-TgWz02c5l2XJlEDys81UVat5+Qg9xqmYah7tQt6xlsBwFvzIFPz64aZFGd1av2sxT22NsssqLATjNsusAIJICA==}
+    engines: {node: '>=18.0.0'}
 
   '@types/node-fetch@2.6.11':
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
@@ -571,6 +578,8 @@ packages:
     engines: {node: '>=0.4'}
 
 snapshots:
+
+  '@google/generative-ai@0.17.1': {}
 
   '@types/node-fetch@2.6.11':
     dependencies:
